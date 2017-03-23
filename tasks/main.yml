@@ -2,3 +2,7 @@
 
 - include: sshd.yml
 - include: addusers.yml
+
+- name: reload sshd
+  notify:
+    - reloaded sshd
