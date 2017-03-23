@@ -1,0 +1,14 @@
+---
+
+galaxy_info:
+  author: will Farrell
+  company: Farrell Labs Inc.
+  min_ansible_version: 2.3
+
+  platforms:
+  - name: EL
+    version:
+    - all
+  categories:
+  - system
+dependencies: []
