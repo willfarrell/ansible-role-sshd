@@ -8,4 +8,5 @@ sshd_keybits: 2048
 
 ssh_user_expire: 7776000
 ssh_users:
-  - ansible
+
+ssh_default_password: 'P4ssw0rd!01234'

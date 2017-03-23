@@ -4,7 +4,7 @@
   user:
     name:     "{{ item }}"
     state:    present
-    password: "{{ ssh_default_password }}"
+    password: "{{ ssh_default_password | password_hash('sha512') }}"
     update_password: always
     #expires={{ ansible_date_time.epoch + ssh_user_expire }}
   with_items:
