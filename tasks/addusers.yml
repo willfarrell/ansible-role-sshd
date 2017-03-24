@@ -5,14 +5,10 @@
     name:     "{{ item }}"
     state:    present
     password: "{{ ssh_default_password | password_hash('sha512') }}"
-    update_password: always
+    #update_password: always
     #expires={{ ansible_date_time.epoch + ssh_user_expire }}
   with_items:
     - "{{ ssh_users }}"
-
-# TODO apply password
-# lookup password creates a localfile
-# "{{ lookup('password', '/home/{{ item }}/.password chars=ascii_letters,digits,hexdigits,punctuation length=32') }}"
 
 - name: Add ssh user keys
   authorized_key:
