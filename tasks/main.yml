@@ -2,8 +2,3 @@
 
 - include: sshd.yml
 - include: addusers.yml
-
-- name: reload sshd
-  service:
-    name: sshd
-    state: reloaded

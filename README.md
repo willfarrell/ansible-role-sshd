@@ -28,3 +28,6 @@ python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_c
 # Enter password
 # Use value to set: `ssh_default_password`
 ```
+
+## TODO
+- [ ] BUG add user needs to be run twice ... ?

@@ -31,6 +31,12 @@
 - name: Set root group permissions
   user:
     name:   "{{ item }}"
-    group:  wheel
+    groups:  wheel
+    append: yes
   with_items:
     - "{{ ssh_sudo_users }}"
+
+- name: reload sshd
+  service:
+    name: sshd
+    state: reloaded
