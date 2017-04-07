@@ -3,17 +3,17 @@
 # Remove
 - name: Remove disabled users
   user:
-    name: "{{ item }}" 
-    groups: "" 
-    remove: no 
-    state: absent 
+    name: "{{ item }}"
+    groups: ""
+    remove: no
+    state: absent
   with_items:
     - "{{ ssh_disabled_users }}"
 
-  - name: Remove disabled user keys 
+- name: Remove disabled user keys
   file:
-    state: absent 
-    path: "/etc/ssh/authorized_keys/{{ item }}" 
+    state: absent
+    path: "/etc/ssh/authorized_keys/{{ item }}"
   with_items:
     - "{{ ssh_disabled_users }}"
 
@@ -23,8 +23,8 @@
     name:     "{{ item }}"
     state:    present
     password: "{{ ssh_default_password | password_hash('sha512') }}"
+    expires:  0
     #update_password: always
-    #expires={{ ansible_date_time.epoch + ssh_user_expire }}
   with_items:
     - "{{ ssh_users }}"
 
