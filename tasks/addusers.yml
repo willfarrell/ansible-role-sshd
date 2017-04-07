@@ -1,5 +1,23 @@
 ---
 
+# Remove
+- name: Remove disabled users
+  user:
+    name: "{{ item }}" 
+    groups: "" 
+    remove: no 
+    state: absent 
+  with_items:
+    - "{{ ssh_disabled_users }}"
+
+  - name: Remove disabled user keys 
+  file:
+    state: absent 
+    path: "/etc/ssh/authorized_keys/{{ item }}" 
+  with_items:
+    - "{{ ssh_disabled_users }}"
+
+# Add
 - name: Add users
   user:
     name:     "{{ item }}"
@@ -16,6 +34,7 @@
     state:  present
     path:   "/etc/ssh/authorized_keys/{{ item }}"
     key:    "{{ lookup('file', 'authorized_keys/{{ item }}') }}"
+    exclusive: yes
   with_items:
     - "{{ ssh_users }}"
 
@@ -27,6 +46,15 @@
     mode: 0400
   with_items:
     - "{{ ssh_users }}"
+
+# Add sudo
+- name: Allow 'wheel' group to have passwordless sudo 
+  lineinfile:
+    dest: /etc/sudoers 
+    state: present 
+    regexp: '^%wheel' 
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL' 
+    validate: visudo -cf %s
 
 - name: Set root group permissions
   user:
